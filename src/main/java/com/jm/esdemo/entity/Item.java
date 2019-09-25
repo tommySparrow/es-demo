@@ -17,16 +17,15 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Document(indexName = "item",type = "docs")
 public class Item {
     @Id
-    @Field(type = FieldType.Long,store = true)
     private Long id;
-    @Field(type = FieldType.Text,store = true, analyzer = "ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String title;
-    @Field(type = FieldType.Text,store = true, analyzer = "ik_max_word")
+    @Field(type = FieldType.Keyword)
     private String category;
-    @Field(type = FieldType.Text,store = true, analyzer = "ik_max_word")
+    @Field(type = FieldType.Keyword)
     private String brand;
-    @Field(type = FieldType.Double,store = true)
+    @Field(type = FieldType.Double)
     private Double price;
-    @Field(type = FieldType.Text,store = true)
+    @Field(index = false, type = FieldType.Keyword)
     private String images;
 }
