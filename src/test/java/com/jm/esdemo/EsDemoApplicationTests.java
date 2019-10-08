@@ -55,7 +55,7 @@ public class EsDemoApplicationTests {
     @Test
     public void insert() {
 
-        Item item = new Item(2L, "华为手机", " 手机",
+        Item item = new Item(2L, "华为手机", "手机",
                 "华为", 3499.00, "http://image.baidu.com/13123.jpg");
         itemRepository.save(item);
     }
@@ -66,8 +66,8 @@ public class EsDemoApplicationTests {
     @Test
     public void insertList() {
         List<Item> list = new ArrayList<>();
-        list.add(new Item(5L, "手机", " 手机", "锤子", 3699.08, "http://image.baidu.com/13123.jpg"));
-        list.add(new Item(4L, "小米s", " 手机", "华为", 4499.09, "http://image.baidu.com/13123.jpg"));
+        list.add(new Item(5L, "手机", "手机", "锤子", 3699.08, "http://image.baidu.com/13123.jpg"));
+        list.add(new Item(4L, "小米s", "手机", "华为", 4499.09, "http://image.baidu.com/13123.jpg"));
         // 接收对象集合，实现批量新增
         itemRepository.saveAll(list);
     }
@@ -111,8 +111,8 @@ public class EsDemoApplicationTests {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
         // 添加基本分词查询
         queryBuilder.withQuery(QueryBuilders.termQuery("category", "手机"));
-        // 分页：
-        int page = 1;
+        // 分页：从第0页开始
+        int page = 0;
         int size = 2;
         queryBuilder.withPageable(PageRequest.of(page, size));
 
