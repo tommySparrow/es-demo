@@ -140,6 +140,8 @@ public class EsDemoApplicationTests {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
         // 添加基本分词查询
         queryBuilder.withQuery(QueryBuilders.termQuery("category", "手机"));
+        //过滤要显示的字段和不显示的字段
+        queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{"id","title","category","brand","price","images"}, new String[]{""}));
 
         // 排序
         queryBuilder.withSort(SortBuilders.fieldSort("id").order(SortOrder.DESC));
@@ -159,8 +161,7 @@ public class EsDemoApplicationTests {
     @Test
     public void testAgg() {
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        // 不过滤任何结果
-        queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{""}, null));
+
         // 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand
         queryBuilder.addAggregation(AggregationBuilders.terms("brands").field("brand"));
         // 2、查询,需要把结果强转为AggregatedPage类型
@@ -186,8 +187,7 @@ public class EsDemoApplicationTests {
     @Test
     public void testSubAgg(){
         NativeSearchQueryBuilder queryBuilder = new NativeSearchQueryBuilder();
-        // 不查询任何结果
-        queryBuilder.withSourceFilter(new FetchSourceFilter(new String[]{""}, null));
+
         // 1、添加一个新的聚合，聚合类型为terms，聚合名称为brands，聚合字段为brand
         queryBuilder.addAggregation(
                 AggregationBuilders.terms("brands").field("brand")
