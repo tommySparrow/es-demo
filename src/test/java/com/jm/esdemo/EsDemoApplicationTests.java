@@ -39,7 +39,6 @@ public class EsDemoApplicationTests {
     @Test
     public void testCreateIndex() {
         elasticsearchTemplate.createIndex(Item.class);
-        elasticsearchTemplate.putMapping(Item.class);
     }
 
     /**
